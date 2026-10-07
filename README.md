@@ -1,6 +1,6 @@
 # Road Trip for LibreNMS
 
-> **Just for fun - first version (0.1.0).** Developed and tested against LibreNMS 26.9.1 in Docker with demo data.
+> **Just for fun - version 0.2.0.** Developed and tested against LibreNMS 26.9.1 in Docker with demo data.
 
 A [LibreNMS](https://www.librenms.org/) plugin that turns your network into a little world you can drive around in.
 Your **custom maps are islands**, the **links on them are roads** with the live traffic of their ports driving on
@@ -188,7 +188,7 @@ ferries to other countries, wireless clients walking around access points, islan
 
 ## Changelog
 
-### Unreleased
+### 0.2.0 (2026-10-07)
 
 - **Jump ramp** on a new peninsula (the middle island if it has room), pointing back across the island; the flight is
   aimed at dry land, IPv4 networks of ports you may see fly around as birds (`max_networks`). **J** goes to the ramp.
@@ -198,7 +198,7 @@ ferries to other countries, wireless clients walking around access points, islan
 - New sounds (launch, wind, landing, tweets, door bell, chatter, pour, glug, hic, siren, whistle); drinks and jumps in
   the corner. Demo data now has IPv4 addresses.
 
-### 0.1.0 (2026-10-07)
+### 0.1.0 (2026-10-07, first version)
 
 First version: custom maps as islands, edges as roads with live port traffic and jams, map links and LLDP
 neighbours as bridges, device status (down / rebooted / disabled / alerts), visits to device and port pages,
