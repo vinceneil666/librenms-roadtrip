@@ -48,6 +48,46 @@ Traffic, status and the radio are refreshed every minute while you drive.
   </tr>
 </table>
 
+### The jump ramp
+
+The game finds open sea next to an island (the middle one if it has room) and builds a **peninsula** with a run-up
+and a ramp at its root, pointing back across the island. Drive out to the tip (or press **J**), turn round, and
+race up the ramp: the car soars over the island and lands on the far side, in a sky full of your **IPv4 networks**
+flying around like birds (only networks on ports you may see).
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/ramp.png" alt="The run-up and the jump ramp on a peninsula of Bergen DC"></td>
+    <td width="50%"><img src="docs/jump.png" alt="In the air over Bergen DC, among IPv4 networks flying like birds"></td>
+  </tr>
+  <tr><td>The run-up on its peninsula - full speed to the ramp</td><td>Over the island, among your IPv4 networks</td></tr>
+</table>
+
+### Pubs
+
+**Every 5th island** - in the order the custom maps were created, the LLDP island last - gets a **pub**, each with
+its own theme: *The Packet Loss Pub* (Tudor), *Bar Ping* (neon cocktails), *The Tiki TTL* (tiki bar), *O'Router's
+Irish Pub*, then round again. It stands at the end of a **small, windy gravel road** on its own peninsula, right by
+the beach. Gravel is slower than asphalt.
+
+Park outside and a pixel-art scene plays: a guy walks in and orders a *Singapore Ping*, a *Mai Ping*, a *Ping and
+Tonic*, a *Penguin Sunrise*... drinks it, and the window closes. When he gets back into the car, a **police car**
+comes down the gravel road with siren and flashing lights - no driving like that: **10 seconds to sober up**, then the
+police drive off again. Esc skips the scene (not the wait).
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/pub.png" alt="The windy gravel road to The Packet Loss Pub at the coast"></td>
+    <td width="50%"><img src="docs/bar.png" alt="Pixel-art bar scene: Evening! One Bloody Ping, please."></td>
+  </tr>
+  <tr><td>The gravel road to <i>The Packet Loss Pub</i></td><td>"Evening! One Bloody Ping, please."</td></tr>
+  <tr>
+    <td width="50%"><img src="docs/police.png" alt="The police car on the gravel road, sobering-up countdown"></td>
+    <td></td>
+  </tr>
+  <tr><td>...and then the police: 10 seconds to sober up</td><td></td></tr>
+</table>
+
 ### Driving
 
 | Key | |
@@ -56,6 +96,7 @@ Traffic, status and the radio are refreshed every minute while you drive.
 | Space | Brake |
 | **N** | **Next problem**: a compass arrow points to the next down device, alert, closed road or traffic jam (press again for the one after) |
 | **O** | Overview: the whole archipelago from above |
+| **J** | To the tip of the jump ramp's run-up, facing the ramp |
 | Esc | Back on the road (closes a device or port page) |
 | H / M / R | Horn / sound on or off / back to the start |
 
@@ -63,7 +104,8 @@ Traffic, status and the radio are refreshed every minute while you drive.
   page (with its graphs) - *Open page* takes you there for real. Visited buildings get a 🚩.
 - The sea stops you, with a splash. Grass is slow, roads and roundabouts are fast.
 - Sometimes a 🐧 **penguin** waddles across the road. Brake! Hit it and you spin out (the penguin is fine).
-- Sound is generated in the browser (engine, horn, waves on the bridges, the radio); **M** mutes it.
+- Sound is generated in the browser (engine, horn, waves on the bridges, the radio, wind in the air, the pub); **M**
+  mutes it.
 
 ### In LibreNMS
 
@@ -111,6 +153,7 @@ Under **Plugin Admin → Road Trip** (defaults shown):
 | `discovered_island` | `true` | Build the extra island from LLDP/CDP neighbours that are on no custom map |
 | `max_discovered` | `150` | At most this many devices on that island |
 | `radio_events` | `25` | Event log entries on the car radio |
+| `max_networks` | `150` | At most this many IPv4 networks (on ports the user may see) fly around as birds during a jump |
 
 ## Trying it with demo data
 
@@ -141,10 +184,19 @@ Nothing is written to LibreNMS; the only state is in the browser (visited buildi
 ## Ideas for later
 
 Port graphs on billboards along the roads, health sensors (hot devices shimmer), services as shops, BGP peers as
-ferries to other countries, wireless clients walking around access points, islands placed by location GPS, the jump
-ramp and the bars from the NetBox version.
+ferries to other countries, wireless clients walking around access points, islands placed by location GPS.
 
 ## Changelog
+
+### Unreleased
+
+- **Jump ramp** on a new peninsula (the middle island if it has room), pointing back across the island; the flight is
+  aimed at dry land, IPv4 networks of ports you may see fly around as birds (`max_networks`). **J** goes to the ramp.
+- **Pubs** on every 5th island (creation order), themed Tudor / neon / tiki / Irish, at the end of a windy gravel road
+  on their own peninsula by the beach; pixel-art drink scene, then the police come down the gravel road and you sober
+  up for 10 seconds.
+- New sounds (launch, wind, landing, tweets, door bell, chatter, pour, glug, hic, siren, whistle); drinks and jumps in
+  the corner. Demo data now has IPv4 addresses.
 
 ### 0.1.0 (2026-10-07)
 

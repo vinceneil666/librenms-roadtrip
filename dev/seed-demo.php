@@ -18,6 +18,8 @@ use App\Models\CustomMapEdge;
 use App\Models\CustomMapNode;
 use App\Models\Device;
 use App\Models\Eventlog;
+use App\Models\Ipv4Address;
+use App\Models\Ipv4Network;
 use App\Models\Link;
 use App\Models\Location;
 use App\Models\Port;
@@ -31,6 +33,8 @@ Alert::whereIn('device_id', $old)->delete();
 AlertRule::where('name', 'like', 'Road Trip demo:%')->delete();
 Eventlog::whereIn('device_id', $old)->delete();
 Link::whereIn('local_device_id', $old)->delete();
+Ipv4Address::whereIn('port_id', Port::whereIn('device_id', $old)->select('port_id'))->delete();
+Ipv4Network::where('context_name', 'roadtrip-demo')->delete();
 Port::whereIn('device_id', $old)->delete();
 foreach (CustomMap::whereIn('name', $mapNames)->get() as $map) {
     $map->edges()->delete();
@@ -352,6 +356,19 @@ foreach ($events as [$dev, $msg, $type, $severity, $minutesAgo]) {
     $e->forceFill(['device_id' => $devices[$dev]->device_id, 'datetime' => now()->subMinutes($minutesAgo),
                    'message' => $msg, 'type' => $type, 'severity' => $severity, 'reference' => null, 'username' => '']);
     $e->save();
+}
+
+// IPv4 addresses on the ports (each link its own /30, loopbacks in 10.255.0.0/24) - the birds of the jump
+$net = 0;
+foreach (Port::whereIn('device_id', collect($devices)->pluck('device_id'))->orderBy('port_id')->get() as $i => $p) {
+    $n = new Ipv4Network;
+    $n->forceFill(['ipv4_network' => sprintf('10.%d.%d.0/24', 10 + intdiv($i, 40) * 10, $i % 40 * 4), 'context_name' => 'roadtrip-demo']);
+    $n->save();
+    $a = new Ipv4Address;
+    $a->forceFill(['ipv4_address' => sprintf('10.%d.%d.1', 10 + intdiv($i, 40) * 10, $i % 40 * 4), 'ipv4_prefixlen' => 24,
+                   'ipv4_network_id' => $n->ipv4_network_id, 'port_id' => $p->port_id, 'context_name' => 'roadtrip-demo']);
+    $a->save();
+    $net++;
 }
 
 // LibreNMS logs "Device ... has been created" for every device above - keep the radio to the interesting news
