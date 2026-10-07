@@ -134,7 +134,7 @@ this repository and add it with `lnms` (as the `librenms` user, in the LibreNMS 
 ```bash
 cd /opt/librenms
 composer config repositories.librenms-roadtrip vcs https://github.com/vinceneil666/librenms-roadtrip
-./lnms plugin:add vinceneil666/librenms-roadtrip dev-main
+./lnms plugin:add vinceneil666/librenms-roadtrip 0.2.0     # or dev-main for the latest code
 php artisan optimize:clear     # so LibreNMS picks up the plugin's routes and views
 ```
 
@@ -197,7 +197,7 @@ ferries to other countries, wireless clients walking around access points, islan
 
 ## Changelog
 
-### 0.2.0 (2026-10-07)
+### 0.2.0 (2026-10-07, first release: `v0.2.0`)
 
 - **Jump ramp** on a new peninsula (the middle island if it has room), pointing back across the island; the flight is
   aimed at dry land, IPv4 networks of ports you may see fly around as birds (`max_networks`). **J** goes to the ramp.
