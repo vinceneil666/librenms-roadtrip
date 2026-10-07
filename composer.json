@@ -1,0 +1,22 @@
+{
+    "name": "vinceneil666/librenms-roadtrip",
+    "description": "LibreNMS plugin, just for fun: drive a car across your custom maps - links are roads with live traffic, maps are islands, map links are bridges",
+    "keywords": ["librenms", "plugin", "game", "custom-maps", "fun"],
+    "type": "package",
+    "license": "Apache-2.0",
+    "authors": [{"name": "vinceneil666"}],
+    "autoload": {
+        "psr-4": {"Vinceneil666\\LibrenmsRoadtrip\\": "src/"}
+    },
+    "require": {
+        "php": "^8.2",
+        "librenms/plugin-interfaces": "^1.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": ["Vinceneil666\\LibrenmsRoadtrip\\RoadTripProvider"]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
