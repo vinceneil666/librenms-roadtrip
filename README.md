@@ -128,11 +128,20 @@ This is the same Core Network custom map in LibreNMS - the island above is built
 
 ## Installation
 
-The plugin is a Composer package (`vinceneil666/librenms-roadtrip`). The repository is private for now, so install
-it from a checkout:
+The plugin is a Composer package (`vinceneil666/librenms-roadtrip`). It is not on Packagist, so point Composer at
+this repository and add it with `lnms` (as the `librenms` user, in the LibreNMS directory):
 
 ```bash
-git clone git@github.com:vinceneil666/librenms-roadtrip.git /opt/librenms-roadtrip
+cd /opt/librenms
+composer config repositories.librenms-roadtrip vcs https://github.com/vinceneil666/librenms-roadtrip
+./lnms plugin:add vinceneil666/librenms-roadtrip dev-main
+php artisan optimize:clear     # so LibreNMS picks up the plugin's routes and views
+```
+
+Or from a checkout, symlinked so changes are live (handy for development):
+
+```bash
+git clone https://github.com/vinceneil666/librenms-roadtrip.git /opt/librenms-roadtrip
 sudo -u librenms sh /opt/librenms-roadtrip/dev/install-dev.sh
 ```
 
