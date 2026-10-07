@@ -15,7 +15,7 @@ class RoadTripProvider extends ServiceProvider
 {
     public const NAME = 'roadtrip';
 
-    public const VERSION = '0.1.0';
+    public const VERSION = '0.2.0';
 
     public function boot(PluginManagerInterface $pluginManager): void
     {

@@ -30,6 +30,12 @@
                 background: rgba(15, 23, 42, .45); color: #fff; font: 600 22px system-ui, sans-serif; cursor: pointer; }
     .rt-start span { background: rgba(15, 23, 42, .88); padding: 16px 26px; border-radius: 10px; text-align: center; }
     .rt-start small { display: block; font-size: 14px; font-weight: 400; color: #cbd5e1; margin-top: 6px; }
+    .rt-bar { position: absolute; inset: 0; z-index: 5; display: none; align-items: center; justify-content: center;
+              background: rgba(0, 0, 0, .65); }
+    .rt-bar.rt-open { display: flex; }
+    .rt-bar canvas { width: min(800px, 94%); aspect-ratio: 16 / 9; height: auto; image-rendering: pixelated;
+                     border: 6px solid #0f172a; border-radius: 8px; box-shadow: 0 20px 60px rgba(0, 0, 0, .5); }
+    .rt-bar-skip { position: absolute; bottom: 14px; right: 18px; color: #e2e8f0; font: 12px system-ui, sans-serif; }
     .rt-modal { position: fixed; inset: 0; z-index: 2000; background: rgba(15, 23, 42, .6); display: none;
                 align-items: center; justify-content: center; }
     .rt-modal.rt-open { display: flex; }
@@ -55,8 +61,12 @@
         <div class="rt-hud" id="rt-hud"></div>
         <div class="rt-help">
             <kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> / <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> drive
-            · <kbd>Space</kbd> brake · stop on a <strong>P</strong> to visit · <kbd>N</kbd> next problem · <kbd>O</kbd> overview
+            · <kbd>Space</kbd> brake · stop on a <strong>P</strong> to visit · <kbd>N</kbd> next problem · <kbd>O</kbd> overview · <kbd>J</kbd> jump ramp
             · <kbd>Esc</kbd> back on the road · <kbd>H</kbd> horn · <kbd>M</kbd> sound · <kbd>R</kbd> back to the start
+        </div>
+        <div class="rt-bar" id="rt-bar" aria-live="polite">
+            <canvas id="rt-bar-canvas" width="800" height="450" aria-label="Bar scene"></canvas>
+            <div class="rt-bar-skip">Esc to skip</div>
         </div>
         <div class="rt-start" id="rt-start"><span>🚗 Click here, then drive with the arrow keys
             <small>Islands: {{ count($world['islands']) }} · press N to drive to the next problem</small></span></div>

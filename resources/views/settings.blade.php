@@ -8,5 +8,7 @@
             <td class="text-muted">At most this many devices on that island</td></tr>
         <tr><th>radio_events</th><td>{{ $settings['radio_events'] }}</td>
             <td class="text-muted">Event log entries read out on the car radio</td></tr>
+        <tr><th>max_networks</th><td>{{ $settings['max_networks'] }}</td>
+            <td class="text-muted">At most this many IPv4 networks (on ports you may see) fly around as birds when you jump</td></tr>
     </table>
 </div>

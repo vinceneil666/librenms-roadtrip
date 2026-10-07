@@ -6,6 +6,8 @@ use App\Models\Alert;
 use App\Models\CustomMap;
 use App\Models\Device;
 use App\Models\Eventlog;
+use App\Models\Ipv4Address;
+use App\Models\Ipv4Network;
 use App\Models\Link;
 use App\Models\Port;
 use App\Models\User;
@@ -26,6 +28,8 @@ class World
         'max_discovered' => 150,
         // Event log entries for the car radio
         'radio_events' => 25,
+        // At most this many (random) IPv4 networks fly around as birds when the car jumps
+        'max_networks' => 150,
     ];
 
     /** @var array<int, Device> */
@@ -66,6 +70,7 @@ class World
         return [
             'islands' => $islands,
             'radio' => $this->radio(),
+            'networks' => $this->networks(),
             'generated' => now()->toIso8601String(),
         ];
     }
@@ -243,6 +248,20 @@ class World
             'in_pct' => $pct($in, $speedIn),
             'out_pct' => $pct($out, $speedOut),
         ];
+    }
+
+    /**
+     * Random IPv4 networks on ports the user may see - the birds in the sky during a jump.
+     *
+     * @return array<int, string>
+     */
+    private function networks(): array
+    {
+        $ports = Port::query()->hasAccess($this->user)->select('port_id');
+
+        return Ipv4Network::query()
+            ->whereIn('ipv4_network_id', Ipv4Address::query()->whereIn('port_id', $ports)->select('ipv4_network_id'))
+            ->inRandomOrder()->limit((int) $this->settings['max_networks'])->pluck('ipv4_network')->all();
     }
 
     /** Port status columns are enums in newer LibreNMS versions and strings in older ones. */
